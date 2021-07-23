@@ -1,0 +1,5 @@
+- name: riavvio apache2
+  service:
+    name: apache2
+    state: restarted
+  become: true

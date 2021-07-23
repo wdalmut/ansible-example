@@ -1,0 +1,26 @@
+- hosts: all
+  vars_files:
+    - vars.yaml
+  remote_user: '{{ ssh_user }}'
+  roles:
+    - utils
+- hosts: frontend
+  vars_files:
+    - vars.yaml
+  remote_user: '{{ ssh_user }}'
+  roles:
+    - git
+    - php
+    - myapp
+- hosts: database
+  vars_files:
+    - vars.yaml
+  remote_user: '{{ ssh_user }}'
+  tasks:
+    - name: installo il pacchetto database
+      apt:
+        name:
+          - mysql-server
+        state: present
+        update_cache: yes
+      become: true

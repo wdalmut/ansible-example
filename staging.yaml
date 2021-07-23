@@ -1,0 +1,11 @@
+all:
+  children:
+    frontend:
+      hosts:
+        52.59.234.120:
+          email_admin: 'walter.dalmut@gmail.com'
+        3.67.186.53:
+          email_admin: 'walter.dalmut@corley.it'
+    database:
+      hosts:
+        54.93.218.244:

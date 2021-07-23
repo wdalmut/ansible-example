@@ -1,0 +1,10 @@
+- name: installo apache2 con mod php
+  apt:
+    name:
+      - apache2
+      - libapache2-mod-php7.4
+    state: present
+    update_cache: yes
+  become: true
+  tags:
+    - install_php

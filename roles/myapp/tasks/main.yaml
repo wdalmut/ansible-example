@@ -1,0 +1,12 @@
+- name: carico i miei vhosts
+  template:
+    src: vhosts.conf.j2
+    dest: /etc/apache2/sites-available/000-default.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify:
+    - riavvio apache2
+  tags:
+    - deploy_myapp
