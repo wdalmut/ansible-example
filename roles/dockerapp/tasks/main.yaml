@@ -1,0 +1,21 @@
+- name: creo la directory base myapp
+  file:
+    path: "/home/{{ ssh_user }}/myapp"
+    state: directory
+    mode: '0755'
+  tags:
+    - deploy_dockerapp
+- name: deploy applicazione docker
+  template:
+    src: docker-compose.yaml.j2
+    dest: "/home/{{ ssh_user }}/myapp/docker-compose.yaml"
+  tags:
+    - deploy_dockerapp
+- name: avvio lo stack docker
+  docker_compose:
+    project_src: "/home/{{ ssh_user }}/myapp"
+    files:
+      - docker-compose.yaml
+    tls_hostname: localhost
+  tags:
+    - deploy_dockerapp

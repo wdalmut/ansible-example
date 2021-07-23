@@ -1,0 +1,56 @@
+- name: installo le dipendenze docker python
+  apt:
+    name:
+      - python3
+      - python3-pip
+  become: true
+- name: installo dipendenze base per docker
+  apt:
+    name:
+      - apt-transport-https
+      - ca-certificates
+      - curl
+      - gnupg
+      - lsb-release
+  become: true
+- name: aggiungo la chiave del repo APT
+  apt_key:
+    url: https://download.docker.com/linux/ubuntu/gpg
+    state: present
+  become: true
+- name: aggiungo il repository
+  apt_repository:
+    repo: deb https://download.docker.com/linux/ubuntu focal stable
+    state: present
+    update_cache: true
+  become: true
+- name: installo il docker engine
+  apt:
+    name:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
+    state: present
+    update_cache: yes
+  become: true
+- name: verifico che il docker engine sia attivo
+  service:
+    name: docker
+    state: started
+    enabled: yes
+
+- name: aggiungo l'utente ubuntu al gruppo docker
+  become: true
+  user:
+    name: '{{ ssh_user }}'
+    groups: docker
+    append: true
+
+- meta: reset_connection
+
+- name: installare i componenti pydocker
+  pip:
+    name: "{{ item }}"
+  loop:
+    - docker
+    - docker-compose

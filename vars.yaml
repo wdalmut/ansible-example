@@ -1,3 +1,5 @@
 ssh_user: ubuntu
 
 email_admin: 'walter.dalmut@gmail.com'
+
+app_version: '2.4'

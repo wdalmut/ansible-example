@@ -1,0 +1,14 @@
+version: '2'
+services:
+  web:
+    image: httpd:{{ app_version }}
+    ports:
+      - 8080:80
+  memcached:
+    image: memcached
+    ports:
+      - 11211:11211
+  proxy:
+    image: nginx
+    ports:
+      - 8081:80

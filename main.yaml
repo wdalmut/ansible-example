@@ -12,6 +12,8 @@
     - git
     - php
     - myapp
+    - docker
+    - dockerapp
 - hosts: database
   vars_files:
     - vars.yaml
